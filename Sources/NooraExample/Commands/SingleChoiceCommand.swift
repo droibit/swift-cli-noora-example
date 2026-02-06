@@ -31,18 +31,18 @@ private let watchDevices = [
 struct SingleChoiceCommand: ParsableCommand {
   static let configuration = CommandConfiguration(
     commandName: "singlechoice",
-    abstract: "Example command with a single choice"
+    abstract: "Example command with a single choice",
   )
 
-  // ref. https://noora.tuist.dev/components/prompts/single-choice
-  mutating func run() throws {
+  /// ref. https://noora.tuist.dev/components/prompts/single-choice
+  mutating func run() {
     let noora = Noora()
 
     let selectedOS: OSType = noora.singleChoicePrompt(
       title: "Project",
       question: "Which operating system would you like to target?",
       description: "Select the target OS for the generated project.",
-      autoselectSingleChoice: false
+      autoselectSingleChoice: false,
     )
 
     let deviceOptions: [String] = switch selectedOS {
@@ -56,7 +56,7 @@ struct SingleChoiceCommand: ParsableCommand {
       options: deviceOptions,
       description: "Select a device to simulate when running the app.",
       filterMode: .enabled,
-      autoselectSingleChoice: false
+      autoselectSingleChoice: false,
     )
 
     noora.success(.alert("Selected: \(.primary(selectedDevice))"))

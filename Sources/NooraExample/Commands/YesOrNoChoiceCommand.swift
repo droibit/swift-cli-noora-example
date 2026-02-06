@@ -4,16 +4,16 @@ import Noora
 struct YesOrNoChoiceCommand: ParsableCommand {
   static let configuration = CommandConfiguration(
     commandName: "yesno",
-    abstract: "Example command with a yes/no choice"
+    abstract: "Example command with a yes/no choice",
   )
 
   @Flag(
     name: .shortAndLong,
-    help: "Show a deletion confirmation prompt instead of authentication prompt"
+    help: "Show a deletion confirmation prompt instead of authentication prompt",
   )
   var delete: Bool = false
 
-  mutating func run() throws {
+  mutating func run() {
     let noora = Noora()
 
     let result: Bool = if delete {
@@ -21,14 +21,14 @@ struct YesOrNoChoiceCommand: ParsableCommand {
         title: "Delete",
         question: "Are you sure you want to delete the selected item?",
         defaultAnswer: false,
-        description: "This action cannot be undone."
+        description: "This action cannot be undone.",
       )
     } else {
       noora.yesOrNoChoicePrompt(
         title: "Authentication",
         question: "Would you like to authenticate?",
         defaultAnswer: true,
-        description: "Authentication is required to use some CLI features."
+        description: "Authentication is required to use some CLI features.",
       )
     }
 

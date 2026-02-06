@@ -5,7 +5,7 @@ struct SubprocessCommand: AsyncParsableCommand {
   static let configuration = CommandConfiguration(
     commandName: "subprocess",
     abstract: "Example command to demonstrate Subprocess",
-    aliases: ["subp"]
+    aliases: ["subp"],
   )
 
   mutating func run() async throws {

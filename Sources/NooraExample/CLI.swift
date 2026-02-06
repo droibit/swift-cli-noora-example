@@ -13,6 +13,6 @@ struct NooraExampleCLI: AsyncParsableCommand {
       YesOrNoChoiceCommand.self,
       SubprocessCommand.self,
     ],
-    defaultSubcommand: SingleChoiceCommand.self
+    defaultSubcommand: SingleChoiceCommand.self,
   )
 }
