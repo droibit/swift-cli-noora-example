@@ -16,3 +16,4 @@ format:
 .PHONY: lint
 lint:
 	./scripts/swiftlint.sh $(PROJECT_GIT_DIR)
+

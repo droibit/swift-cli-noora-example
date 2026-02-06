@@ -1,0 +1,24 @@
+name: Build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: macos-15
+            xcode: 16.4
+          - os: macos-26
+            xcode: 26.2
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode }}.app
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Build
+        run: swift build --build-tests
