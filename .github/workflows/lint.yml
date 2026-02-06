@@ -17,36 +17,15 @@ on:
       - 'Mintfile'
 
 jobs:
-  lint-format:
+  lint:
     runs-on: macos-26
     steps:
       - uses: actions/checkout@v5
 
       - uses: irgaly/setup-mint@v1
-        with:
-          bootstrap: false
-
-      - name: Install SwiftFormat
-        run: |
-          PACKAGE=$(awk '/SwiftFormat/ {print; exit}' Mintfile)
-          mint install $PACKAGE
 
       - name: Lint with SwiftFormat
-        run: swiftformat . --lint
-
-  lint-swiftlint:
-    runs-on: macos-26
-    steps:
-      - uses: actions/checkout@v5
-
-      - uses: irgaly/setup-mint@v1
-        with:
-          bootstrap: false
-
-      - name: Install SwiftLint
-        run: |
-          PACKAGE=$(awk '/SwiftLint/ {print; exit}' Mintfile)
-          mint install $PACKAGE
+        run: mint run swiftformat swiftformat --lint .
 
       - name: Lint with SwiftLint
         run: mint run swiftlint swiftlint lint
