@@ -2,9 +2,13 @@ name: Linting
 
 on:
   push:
-    paths: ['**.swift']
+    paths:
+      - '**.swift'
+      - 'Mintfile'
   pull_request:
-    paths: ['**.swift']
+    paths:
+      - '**.swift'
+      - 'Mintfile'
 
 jobs:
   lint-format:
@@ -13,9 +17,16 @@ jobs:
       - uses: actions/checkout@v5
 
       - uses: irgaly/setup-mint@v1
+        with:
+          bootstrap: false
+
+      - name: Install SwiftFormat
+        run: |
+          PACKAGE=$(awk '/SwiftFormat/ {print; exit}' Mintfile)
+          mint install $PACKAGE
 
       - name: Lint with SwiftFormat
-        run: mint run swiftformat swiftformat --lint .
+        run: swiftformat . --lint
 
   lint-swiftlint:
     runs-on: macos-26
@@ -23,6 +34,19 @@ jobs:
       - uses: actions/checkout@v5
 
       - uses: irgaly/setup-mint@v1
+        with:
+          bootstrap: false
+
+      - name: Extract SwiftLint from Mintfile
+        id: swiftlint
+        run: |
+          PACKAGE=$(awk '/SwiftLint/ {print; exit}' Mintfile)
+          echo "package=$PACKAGE" >> $GITHUB_OUTPUT
+
+      - name: Install SwiftLint
+        run: |
+          PACKAGE=$(awk '/SwiftLint/ {print; exit}' Mintfile)
+          mint install $PACKAGE
 
       - name: Lint with SwiftLint
         run: mint run swiftlint swiftlint lint
