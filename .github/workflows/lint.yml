@@ -4,10 +4,16 @@ on:
   push:
     paths:
       - '**.swift'
+      - '.github/workflows/lint.yml'
+      - '.swiftformat'
+      - '.swiftlint.yml'
       - 'Mintfile'
   pull_request:
     paths:
       - '**.swift'
+      - '.github/workflows/lint.yml'
+      - '.swiftformat'
+      - '.swiftlint.yml'
       - 'Mintfile'
 
 jobs:
@@ -36,12 +42,6 @@ jobs:
       - uses: irgaly/setup-mint@v1
         with:
           bootstrap: false
-
-      - name: Extract SwiftLint from Mintfile
-        id: swiftlint
-        run: |
-          PACKAGE=$(awk '/SwiftLint/ {print; exit}' Mintfile)
-          echo "package=$PACKAGE" >> $GITHUB_OUTPUT
 
       - name: Install SwiftLint
         run: |
