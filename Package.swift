@@ -24,6 +24,9 @@ let package = Package(
         .product(name: "Subprocess", package: "swift-subprocess"),
         .product(name: "Noora", package: "Noora"),
       ],
+      linkerSettings: [
+        .linkedFramework("FoundationModels"),
+      ],
     ),
   ],
   swiftLanguageModes: [.v6],
